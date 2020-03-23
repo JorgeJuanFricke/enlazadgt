@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 
 const NormaSchema = mongoose.Schema({

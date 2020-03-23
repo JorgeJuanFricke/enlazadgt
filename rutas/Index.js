@@ -1,8 +1,8 @@
 
 const express = require('express');
 const indexRouter = express.Router();
-const Categoria = require('../models/mCategoria.js');
-const Tipo = require('../models/mTipo.js');
+const Categoria = require('../modelos/mCategoria.js');
+const Tipo = require('../modelos/mTipo.js');
 const passport = require('passport');
 const d3 = require('d3');
 

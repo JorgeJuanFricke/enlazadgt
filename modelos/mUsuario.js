@@ -1,19 +1,33 @@
-
 const mongoose = require('mongoose');
 const bcryptjs = require("bcryptjs");
 const SALT_FACTOR = 10;
 
 
 const UsuarioSchema = mongoose.Schema({
-    email: {type: String, required: true, index: {unique: true}},
-    password: String,
-    nombre: String,
-    apellidos:String,
-    dni: String,
+    email: {
+        type: String,
+        required: true,
+        index: {
+            unique: true
+        }
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    nombre: {
+        type: String,
+        required: true
+    },
+    status: String,
+    reset: Boolean,
     admin: Boolean,
     oi: Boolean,
     oat: Boolean,
-    createdAt: { type: Date, default: Date.now },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 
 
 });
@@ -22,13 +36,12 @@ const UsuarioSchema = mongoose.Schema({
 
 
 
-const noop = function() {};
+const noop = function () {};
 
 UsuarioSchema.pre('findOneAndUpdate', function (next) {
     try {
         this._update.password = bcryptjs.hashSync(this._update.password, 10);
-    }
-    catch {
+    } catch {
         return next("error encriptacion");
     }
     next();
@@ -51,13 +64,13 @@ UsuarioSchema.pre("update", {query:true}, function(done) {
 });
 *****/
 
-UsuarioSchema.methods.checkPassword = function(guess, done) {
-    bcryptjs.compare(guess, this.password, function(err, isMatch) {
+UsuarioSchema.methods.checkPassword = function (guess, done) {
+    bcryptjs.compare(guess, this.password, function (err, isMatch) {
         done(err, isMatch);
     });
 };
 
-UsuarioSchema.methods.name = function() {
+UsuarioSchema.methods.name = function () {
     return this.nombre || this.email;
 };
 
