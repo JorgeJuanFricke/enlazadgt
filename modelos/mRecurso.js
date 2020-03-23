@@ -40,36 +40,7 @@ const RecursoSchema = new mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    enlaces: [{
-            objetoId: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            },
-            objetoTipo: {
-                grupo: String,
-                codigo: String,
-                sigla: String
-            },
-            objetoNombre: String,
-            objetoAlias: String,
-        },
 
-    ],
-    referencias: [{
-            sujetoId: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            },
-            sujetoTipo: {
-                grupo: String,
-                codigo: String,
-                sigla: String
-            },
-            sujetoNombre: String,
-            sujetoAlias: String,
-        },
-
-    ]
 
 }, {
     timestamps: true
