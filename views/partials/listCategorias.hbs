@@ -1,0 +1,12 @@
+{{#each Node}}
+    <li>
+        {{id}}
+        {{#if children}}
+            <ul>
+             {{> listCategorias}}
+            </ul>
+        {{/if}}
+
+    </li>
+
+{{/each}}

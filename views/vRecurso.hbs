@@ -1,0 +1,85 @@
+
+
+<form id="frmRecurso" class="form-horizontal"  action="{{tipo.url}}" method="POST">
+
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    {{#with recurso}}
+        <!--div class="container" style="background-color: lightblue"-->
+            <div class="form-group" style="background-color: lightblue" >
+                <span class="h2">{{tipo}}</span>
+                <span class="h2 float-right">{{categoria}}</span>
+            </div>
+        <!--/div-->
+        <div class="form-group">
+            <div class="col col-2">
+                <label for="etiqueta" class="control-label">etiqueta:</label>
+                <input type="text" class="form-control"  maxlength="20" name="etiqueta" value="{{etiqueta}}">
+            </div>
+            <div class="col col-7">
+                <label for="nombre" class="control-label">nombre:</label>
+                <input type="text" class="form-control"  name="nombre" value="{{nombre}}">
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion" class="control-label">descripción:</label>
+            <textarea class="form-control" name="descripcion" id="demo" cols="80" rows="8">
+                {{descripcion}}
+            </textarea>
+        </div>
+        {{#if_eq urlTipo '/recurso/agente/persona'}}
+            {{> Persona}}
+        {{/if_eq}}
+
+        {{#if_eq urlTipo '/recurso/texto'}}
+            {{> Texto}}
+        {{/if_eq}}
+
+        {{#if_eq urlTipo '/recurso/legal/norma' }}
+            {{> Norma}}
+        {{/if_eq}}
+
+        {{#if_eq urlTipo '/recurso/legal/tasaSancion'}}
+            {{> TasaSancion}}
+        {{/if_eq}}
+
+
+        <div class="form-group">
+            <button type="submit" id="Aceptar" class="btn btn-primary">Grabar</button>
+            <button type="button" class="btn btn-secundary" onclick="window.history.back();">Cancelar</button>
+            <!--button id="cancelar" type="cancel" class="btn">Cancelar</button-->
+        </div>
+        <div class="form-group invisible">
+            <div class="col col-3">
+                <input type="text" class="form-control"  name="tipo" value="{{tipo}}">
+            </div>
+            <div class="col col-9">
+                <input type="text" class="form-control"  name="categoria" value="{{categoria}}">
+            </div>
+        </div>
+    {{/with}}
+</form>
+
+
+
+
+
+{{#section 'jquery'}}
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/vendor/jquery.iframe-transport.js"></script>
+    <script src="/js/vendor/jquery.fileupload.js"></script>
+    <script src="/js/vendor/jquery.fileupload-process.js"></script>
+    <script src="/js/vendor/jquery.fileupload-validate.js"></script>
+    <!--script src="/js/jquery.fileupload.jquery-ui.js"></--script-->
+    <script src="/js/upload.js"></script>
+    <script src="/js/boe.js"></script>
+    <script src="/js/vendor/wysihtml5/bootstrap-wysihtml5-0.0.2.js"></script>
+
+<script>
+    //$("#demo").wysihtml5();
+</script>
+
+{{/section}}
+
+

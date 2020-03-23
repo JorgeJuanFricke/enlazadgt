@@ -1,0 +1,51 @@
+{
+  "name": "untitled",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "run": "nodemon .bin/www",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.3.1",
+    "chai": "^4.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "connect": "^3.6.6",
+    "connect-mongo": "^2.0.3",
+    "csurf": "^1.9.0",
+    "d3": "^5.9.7",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.0",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "formidable": "^1.2.1",
+    "handlebars.moment": "^1.0.4",
+    "hbs": "^4.1.0",
+    "http-errors": "~1.6.2",
+    "jquery": "^3.4.1",
+    "jquery-file-upload-middleware": "^0.1.8",
+    "mongoose": "^5.4.17",
+    "morgan": "~1.9.0",
+    "node-fetch": "^2.6.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "popper.js": "^1.15.0",
+    "puppeteer": "^2.0.0",
+    "ramda": "^0.27.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "select2": "^4.0.12",
+    "tether": "^1.4.7",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2",
+    "jest": "^24.9.0"
+  }
+}

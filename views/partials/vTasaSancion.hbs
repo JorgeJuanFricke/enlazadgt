@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col">
+        <label for="codBoe" class="control-label">ley Boe</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-3">
+        <input id="codBoe" type="text" class="form-control"  name="codBoe" value="{{codBoe}}">
+    </div>
+    <div class="col" col-9>
+        <select id="tituloLey" class="form-control"  name="tituloLey">
+            {{#each leyes}}
+                <option value="{{titulo}}"></option>
+            {{/each}}
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-3">
+        <label for="posicion" class="control-label">posición:</label>
+        <input type="text" class="form-control"  name="posicion" value="{{posicion}}">
+    </div>
+    <div class="col col-2">
+        <label for="pagina" class="control-label">página:</label>
+        <input type="text" class="form-control"  name="pagina" value="{{pagina}}" >
+    </div>
+    <button id="Ver" type="button" class="btn">Ver Boe</button>
+</div>
+<div class="col col-3">
+    <label for="euros" class="control-label">$:</label>
+    <input type="text" class="form-control"  name="euros" value="{{euros}}">
+</div>

@@ -1,0 +1,12 @@
+{{#each Node}}
+    <option>
+        {{id}}
+        {{#if children}}
+            <ul>
+                {{> listCategorias}}
+            </ul>
+        {{/if}}
+
+    </option>
+
+{{/each}}

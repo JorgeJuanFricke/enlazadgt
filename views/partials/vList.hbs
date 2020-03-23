@@ -1,0 +1,12 @@
+
+
+{{#each children}}
+    <li>
+        {{id}}
+        {{#if children}}
+            <ul>
+                {{> Lista}}
+            </ul>
+        {{/if}}
+    </li>
+{{/each}}
