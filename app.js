@@ -289,10 +289,11 @@ app.use('/upload', function(req, res, next) {
 
 
 /****** routers *************************/
-const recursosRouter = require('./routes/rRecursos.js');
-const indexRouter = require('./routes/index.js');
-const apiRouter = require('./api/rApi.js');
+const recursosRouter = require('./rutas/rRecursos.js');
+const indexRouter = require('./rutas/rIndex.js');
+const apiRouter = require('./rutas/rApi.js');
 const adminRouter = require('./admin/rAdmin.js');
+const enlacesRouter = require('./rutas/rEnlaces');
 
 
 

@@ -138,6 +138,138 @@ exports.getTreeTipos = async function (req, res, next) {
         return next(err)
     });
 };
+
+
+
+
+
+
+exports.getTipos = async (req, res, next) => {
+    try {
+
+        let tipos = await Tipo.find({});
+        return res.json(tipos);
+
+    }
+    catch {
+        return next("error leyendo tipos");
+    }
+};
+
+
+
+
+exports.getCategorias = async  (req,res,next) => {
+
+    try {
+        let categorias = await Categoria.find({});
+        return res.json(categorias);
+
+    }
+    catch(err) {
+        return next(err);
+    }
+};
+
+
+exports.getRecursosRelacion = async  (req,res,next) => {
+    try {
+        let relacion = req.query.relacion;
+        let categoria = req.query.categoria;
+        let tipo  = await Relacion.findById(relacion, 'objetoId');
+        let Recurso = mongoose.model('Recurso', MetadataSchema);
+        let recursos = await Recurso.find({tipo: tipo.objetoId, categoria:categoria});
+        console.log('recursos:' +  recursos);
+        return res.json(recursos);
+    }
+    catch(err) {
+        return next(err);
+    }
+
+};
+
+
+
+
+
+
+exports.getEnlaza = async function(req, res, next) {
+
+    try {
+        let recurso = await Recurso.findById(req.params.sujeto).populate("tipo").exec();
+        let categorias = await Categoria.find({}, {_id:1, codigo:1, padre:1, ancestros:1})
+            .sort('padre').exec();
+        let treeCategorias = d3.stratify()
+            .id(function (d) {
+                return d.codigo
+            })
+            .parentId(function (d) {
+                return d.padre
+            })(categorias);
+
+        let relaciones = await Relacion.find({sujetoId: recurso.tipo}).exec()
+        if (!relaciones || relaciones.length === 0) {
+            return next('El tipo de recurso no tiene relaciones permitidas');
+        }
+
+        console.log("recurso"+recurso);
+        console.log("relaciones"+relaciones);
+        return res.render('vEnlaza', {layout: 'main-form', recurso, relaciones, treeCategorias});
+    }
+
+    catch {
+        return next("Error preparando formulario Enlaza");
+    }
+
+};
+
+
+
+exports.noImplementado = async (req, res) => {
+    res.status(500).json({ message: 'característica no implementada' })
+};
+
+
+exports.postEnlaza =  async function(req, res, next) {
+    /*
+    TODO: validar relacion permitida ( no absolutamente necesario)
+    */
+    try {
+        let relacion = await Relacion.findById(req.body.relacion).exec();
+        let sujeto = req.params.sujeto;
+        let recursos = req.body.recursos;
+        recursos = typeof recursos == 'string' ? [recursos] : recursos;
+        let enlaces = recursos.map(function(recurso, i) {
+            return {sujetoId: sujeto,
+                relacionId: relacion._id,
+                relacionNombre: relacion.nombre,
+                objetoId: recurso,
+                autor:req.user.email}
+        });
+        console.log(enlaces);
+        let resultado = await Enlace.insertMany(enlaces);
+        return res.redirect(`/api/recurso/${sujeto}`);
+    }
+    catch(err) {
+        return next(err);
+    }
+};
+
+
+/***
+ *
+ *  {"$match": {"categoria": mongoose.Types.ObjectId(categoria)}},
+ {
+                "$lookup": {
+                    "from": "categorias",
+                    "localField": "categoria",
+                    "foreignField": "_id",
+                    "as": "recursocategorias"
+                }
+            },
+ {"$match": { "recursocategorias.categoria": mongoose.Types.ObjectId(req.params.categoria) }}
+**/
+
 /**
 
 
@@ -365,6 +497,56 @@ function muestraRecursos(tipo, categoria) {
 
  */
 
+
+
+
+
+let validaLeyBOE = function(codBOE) {
+    if (codBOE) {
+
+        let url = 'http://www.boe.es/diario_boe/xml.php?id=' + codBOE.trim();
+        const options = {
+            proxy: `http://${usuario}:${password}@proxynet.trafico.es:8080`,
+            method: 'GET',
+
+            uri: url,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+        };
+
+        rp(options)
+            .then(function (data) {
+                let ley = {};
+                parseString(data, function (err, result) {
+                    ley._doc.fechaActualizacion = result.documento.$;
+                    ley._doc.titulo = result.documento.metadatos["0"].titulo["0"];
+                    ley._doc.departamento = result.documento.metadatos["0"].departamento["0"];
+                    ley._doc.rango = result.documento.metadatos["0"].rango["0"];
+                    ley._doc.numeroOficial = result.documento.metadatos["0"].numero_oficial["0"];
+                    ley._doc.fechaDisposicion = result.documento.metadatos["0"].fecha_disposicion["0"];
+                    ley._doc.fechaPublicacion = result.documento.metadatos["0"].fecha_publicacion["0"];
+                    ley._doc.fechaVigencia = result.documento.metadatos["0"].fecha_vigencia["0"];
+                    ley._doc.origenLegislativo = result.documento.metadatos["0"].origen_legislativo["0"];
+                    ley._doc.judicialmenteAnulada = result.documento.metadatos["0"].judicialmente_anulada["0"];
+                    ley._doc.vigenciaAgotada = result.documento.metadatos["0"].vigencia_agotada["0"];
+                    ley._doc.estatusDerogacion = result.documento.metadatos["0"].estatus_derogacion["0"];
+
+                    return ley;
+                });
+            });
+
+    }
+};
+
+
+
+let getLeyes = async function () {
+    // obtener todas las leyes de las normas existentes
+    // hacer con aggregate
+    // return await Recurso.find({tipo: 'norma'}, {codley:1, tituloLey:1});
+
+};
 
 
 
