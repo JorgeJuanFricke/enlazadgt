@@ -1,7 +1,6 @@
 const express = require('express');
 const Categoria = require('../modelos/mCategoria.js');
 const Tipo = require('../modelos/mTipo.js');
-const passport = require('passport');
 const d3 = require('d3');
 
 
@@ -29,16 +28,6 @@ indexRouter.get('/recurso/:id', function (req, res, next) {
     cIndex.getRecursoyEnlaces(req, res, next);
 });
 
-
-
-
-
-
-
-
-indexRouter.post('/enlaza/:sujeto', hAuto.autenticado, function (req, res, next) {
-    hApi.postEnlazaApi(req, res, next);
-});
 
 
 

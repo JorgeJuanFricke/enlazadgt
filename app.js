@@ -218,13 +218,13 @@ MomentHandler.registerHelpers(hbs);
 
 
 
-let vListaOpciones = require('./views/partials/vListaOpciones.hbs');
-let vList = require('./views/partials/vList.hbs');
-let vListaTipos = require('./views/partials/vListaTipos.hbs');
-let vTexto = require('./views/partials/vTexto.hbs');
-let vNorma = require('./views/partials/vNorma.hbs');
-let vTasaSancion = require('./views/partials/vTasaSancion.hbs');
-let vPersona = require('./views/partials/vPersona.hbs');
+let vListaOpciones = require('./vistas/partials/vListaOpciones.hbs');
+let vList = require('./vistas/partials/vList.hbs');
+let vListaTipos = require('./vistas/partials/vListaTipos.hbs');
+let vTexto = require('./vistas/partials/vTexto.hbs');
+let vNorma = require('./vistas/partials/vNorma.hbs');
+let vTasaSancion = require('./vistas/partials/vTasaSancion.hbs');
+let vPersona = require('./vistas/partials/vPersona.hbs');
 hbs.registerPartial('listaOpciones', vListaOpciones);
 hbs.registerPartial('Texto', vTexto);
 hbs.registerPartial('Norma', vNorma);
