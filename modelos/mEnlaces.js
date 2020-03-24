@@ -44,3 +44,5 @@ const enlaceSchema = mongoose.Schema({
     },
 
 })
+
+exports.Enlace = mongoose.model('Enlace', EnlaceSchema);
