@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
-const RecursoSchema = require('./modelos/RecursoSchema');
+const MetadataSchema = require('./mMetadata');
 
-const NormaSchema = mongoose.Schema({
+const schema = mongoose.Schema;
+
+let NormaSchema = schema({
     codBoe: String,
     tituloLey: String,
     posición: {
@@ -18,6 +20,9 @@ const NormaSchema = mongoose.Schema({
     estatusDerogacion: Boolean,
 
 });
-const Norma = mongoose.model('Norma', RecursoSchema.add(NormaSchema));
+
+NormaSchema = NormaSchema.add(MetadataSchema);
+
+let Norma = mongoose.model('Norma', NormaSchema);
 
 module.exports = Norma;

@@ -1,17 +1,17 @@
 let config = require('./configuracion.js');
 //const createError = require('http-errors');
+const mongoose = require('mongoose');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
+
+
 const app = express();
 
 /**** directorios  ***************/
 const fs = require('fs');
 const dataDir = __dirname + '/upload';
 fs.existsSync(dataDir) || fs.mkdirSync(dataDir);
-
 
 
 
@@ -23,7 +23,7 @@ app.use(logger('combined'));
 
 /*******  body parsers ****************/
 
-
+const bodyParser = require("body-parser");
 app.use(express.json());
 app.use(express.urlencoded({
     extended: false

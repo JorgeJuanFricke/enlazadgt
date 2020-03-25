@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
-const RecursoSchema = require('./modelos/RecursoSchema');
+const MetadataSchema = require('./mMetadata');
 
-const NormaSchema = mongoose.Schema({
+const schema = mongoose.Schema;
+
+let PersonaSchema = schema({
+
     telefono1: String,
     telefono2: String,
     paginaWeb: String,
@@ -13,8 +16,6 @@ const NormaSchema = mongoose.Schema({
 
 });
 
-const Persona = mongoose.model('Persona', RecursoSchema.add(PersonaSchema));
+const Persona = mongoose.model('Persona', MetadataSchema.add(PersonaSchema));
 
 module.exports = Persona;
-
-

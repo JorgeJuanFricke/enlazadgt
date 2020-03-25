@@ -1,7 +1,8 @@
+const MetadataSchema = require('./mMetadata');
 const mongoose = require('mongoose');
-const RecursoSchema = require('./modelos/mRecurso');
 
-const NormaSchema = mongoose.Schema({
+
+const TextoSchema = mongoose.Schema({
     url: {
         type: String,
         required: true
@@ -17,6 +18,6 @@ const NormaSchema = mongoose.Schema({
     pagina: Number
 
 });
-const Texto = mongoose.model('Texto', RecursoSchema.add(TextoSchema));
+const Texto = mongoose.model('Texto', MetadataSchema.add(TextoSchema));
 
 module.exports = Texto;

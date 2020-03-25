@@ -1,15 +1,11 @@
 const express = require('express');
-const recursosRouter = express.Router();
-const mongoose = require('mongoose');
-
-
-const Texto = require('../modelos/mTexto');
 const Norma = require('../modelos/mNorma');
 const Persona = require('../modelos/mPersona');
 const TasaSancion = require('../modelos/mTasaSancion');
+const Texto = require('../modelos/mTexto');
+const Recurso = require('../modelos/mRecurso');
 
-const RecursoSchema = require('../modelos/mRecurso');
-const Recurso = mongoose.model('Recurso', RecursoSchema);
+const recursosRouter = express.Router();
 
 const cRecursos = require('../controladores/cRecursos');
 const Auto = require('../middleware/Autorizacion');
@@ -59,7 +55,7 @@ VALIDAIMPORTE = [
 
 /*** RECURSO general **************************************/
 
-recursosRouter.get('/recurso', esAutenticado, function (req, res, next) {
+recursosRouter.get('/recurso', Auto.esAutenticado, function (req, res, next) {
     req.Recurso = Recurso;
     cRecursos.getRecurso(req, res, next);
 });
@@ -196,10 +192,6 @@ recursosRouter.post('/legal/tasaSancion', Auto.esAutenticado, Auto.esAutorizadoA
 
 
 
-
-/*** ENLACES *************************************************/
-
-recursosRouter.post('/enlaces', esAutenticado, hEnlaces.nuevoEnlace);
 
 
 

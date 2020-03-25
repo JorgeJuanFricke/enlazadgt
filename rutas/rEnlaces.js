@@ -4,13 +4,12 @@ const {
 } = require("express-validator/check");
 
 const Usuario = require("../modelos/mUsuario");
-const cUsuarios = require("../controladores/cUsuarios");
-const esAutenticado = require("../middleware/esAutenticado");
-
+const Auto = require("../middleware/Autorizacion");
+const cEnlaces = require('../controladores/cEnlaces');
 const enlacesRouter = express.Router();
 
-enlacesRouter.put("/enlaces/:sujeto/:objeto", cEnlaces.putEnlace);
-enlacesRouter.delete("/enlaces/:sujeto/:objeto", cEnlaces.deleteEnlace);
+enlacesRouter.put("/enlaces/:sujeto/:objeto", Auto.esAutorizadoAñadir, cEnlaces.putEnlace);
+enlacesRouter.delete("/enlaces/:sujeto/:objeto", Auto.esAutorizadoEditar, cEnlaces.deleteEnlace);
 
 
 

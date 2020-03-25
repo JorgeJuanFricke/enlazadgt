@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const RecursoSchema = require('./modelos/RecursoSchema');
+const MetadataSchema = require('./mMetadata');
 
 const TasaSancionSchema = mongoose.Schema({
     codBoe: String,
@@ -17,11 +17,11 @@ const TasaSancionSchema = mongoose.Schema({
     vigenciaAgotada: Boolean,
     estatusDerogación: Boolean,
     importe: {
-        type: number,
+        type: Number,
         required: true
     }
 
 });
-const TasaSancion = mongoose.model('TasaSancion', RecursoSchema.add(TasaSancionSchema));
+const TasaSancion = mongoose.model('TasaSancion', MetadataSchema.add(TasaSancionSchema));
 
 module.exports = TasaSancion;

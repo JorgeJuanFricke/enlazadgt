@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const RecursoSchema = require('../models/mRecurso.js');
+const RecursoSchema = require('../modelos/mRecurso.js');
 const Recurso = mongoose.model('Recurso', RecursoSchema);
 const Enlace = require('../modelos/enlaces')
 
@@ -36,7 +36,7 @@ exports.deleteEnlace = () => {
 
 
 
-getRecurso = (id) => {
+getRecurso = async (id) => {
     return await Recurso.aggregate([{
             $match: {
                 _id: mongoose.Types.ObjectId(id)
