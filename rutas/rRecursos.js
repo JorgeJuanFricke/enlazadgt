@@ -3,33 +3,16 @@ const recursosRouter = express.Router();
 const mongoose = require('mongoose');
 
 
-const TextoSchema = require('../modelos/mTexto');
-const NormaSchema = require('../modelos/mNorma');
-const PersonaSchema = require('../modelos/mPersona');
-const TasaSancionSchema = require('../modelos/mTasaSancion');
+const Texto = require('../modelos/mTexto');
+const Norma = require('../modelos/mNorma');
+const Persona = require('../modelos/mPersona');
+const TasaSancion = require('../modelos/mTasaSancion');
 
 const RecursoSchema = require('../modelos/mRecurso');
 const Recurso = mongoose.model('Recurso', RecursoSchema);
 
 const cRecursos = require('../controladores/cRecursos');
-const esAutenticado = require('../middleware/esAutenticado');
-
-const Texto = mongoose.model('Texto', RecursoSchema.add({
-    url: String,
-    procedencia: String,
-    fechaDcmto: Date,
-    pagina: Number
-}));
-
-const Norma = mongoose.model('Norma', RecursoSchema.add(NormaSchema));
-const Tasa = mongoose.model('Tasa', RecursoSchema.add(tasaSancionPersonaSchema));
-const Persona = mongoose.model('Persona', RecursoSchema.add(PersonaSchema));
-
-
-
-
-
-
+const Auto = require('../middleware/Autorizacion');
 const {
     body,
     validationResult
@@ -82,18 +65,18 @@ recursosRouter.get('/recurso', esAutenticado, function (req, res, next) {
 });
 
 
-recursosRouter.get('/recurso/:Id', esAutenticado, function (req, res, next) {
+recursosRouter.get('/recurso/:Id', Auto.esAutenticado, function (req, res, next) {
     req.Recurso = Recurso;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/recurso', esAutenticado, esAutorizadoAñadir, VALIDA, function (req, res, next) {
+recursosRouter.post('/recurso', Auto.esAutenticado, Auto.esAutorizadoAñadir, VALIDA, function (req, res, next) {
     req.Recurso = Recurso;
     cRecursos.putRecurso(req, res, next);
 });
 
-recursosRouter.post('/recurso:Id', esAutenticado, esAutorizadoEditar, VALIDA, function (req, res, next) {
+recursosRouter.post('/recurso:Id', Auto.esAutenticado, Auto.esAutorizadoEditar, VALIDA, function (req, res, next) {
     req.Recurso = Recurso;
     cRecursos.updateRecurso(req, res, next);
 });
@@ -105,24 +88,24 @@ recursosRouter.post('/recurso:Id', esAutenticado, esAutorizadoEditar, VALIDA, fu
 /*** PERSONA *******************************************/
 
 
-recursosRouter.get('/agente/persona', esAutenticado, function (req, res, next) {
+recursosRouter.get('/agente/persona', Auto.esAutenticado, function (req, res, next) {
     req.Recurso = Persona;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.get('/agente/persona/:Id', esAutenticado, function (req, res, next) {
+recursosRouter.get('/agente/persona/:Id', Auto.esAutenticado, function (req, res, next) {
     req.Recurso = Persona;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/agente/persona', esAutenticado, VALIDA, function (req, res, next) {
+recursosRouter.post('/agente/persona', Auto.esAutenticado, VALIDA, function (req, res, next) {
     req.Recurso = Persona;
     cRecursos.putRecurso(req, res, next);
 });
 
-recursosRouter.post('/agente/persona/:Id', esAutenticado, VALIDA, function (req, res, next) {
+recursosRouter.post('/agente/persona/:Id', Auto.esAutenticado, VALIDA, function (req, res, next) {
     req.Recurso = Persona;
     cRecursos.updateRecurso(req, res, next);
 });
@@ -130,49 +113,49 @@ recursosRouter.post('/agente/persona/:Id', esAutenticado, VALIDA, function (req,
 
 /*** TEXTO *************************************************/
 
-recursosRouter.get('/texto', esAutenticado, function (req, res, next) {
+recursosRouter.get('/texto', Auto.esAutenticado, function (req, res, next) {
     req.Recurso = Texto;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.get('/texto/:Id', esAutenticado, function (req, res, next) {
+recursosRouter.get('/texto/:Id', Auto.esAutenticado, function (req, res, next) {
     req.Recurso = Texto;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/texto', esAutenticado, VALIDATEXTO, function (req, res, next) {
+recursosRouter.post('/texto', Auto.esAutenticado, VALIDATEXTO, function (req, res, next) {
     req.Recurso = Texto;
     cRecursos.putRecurso(req, res, next);
 });
 
-recursosRouter.post('/texto/:Id', esAutenticado, VALIDATEXTO, function (req, res, next) {
+recursosRouter.post('/texto/:Id', Auto.esAutenticado, VALIDATEXTO, function (req, res, next) {
     req.Recurso = Texto;
     cRecursos.updateRecurso(req, res, next);
 });
 
 
 
-recursosRouter.get('/legal/norma/:Id', esAutenticado, esAutorizadoEditar, function (req, res, next) {
+recursosRouter.get('/legal/norma/:Id', Auto.esAutenticado, Auto.esAutorizadoEditar, function (req, res, next) {
     req.Recurso = Norma;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.get('/legal/norma', esAutenticado, esAutorizadoAñadir, function (req, res, next) {
+recursosRouter.get('/legal/norma', Auto.esAutenticado, Auto.esAutorizadoAñadir, function (req, res, next) {
     req.Recurso = Norma;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/legal/norma/:Id', esAutenticado, esAutorizadoEditar, VALIDANORMA, function (req, res, next) {
+recursosRouter.post('/legal/norma/:Id', Auto.esAutenticado, Auto.esAutorizadoEditar, VALIDANORMA, function (req, res, next) {
     req.Recurso = Norma;
     cRecursos.updateRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/legal/norma', esAutenticado, esAutorizadoAñadir, VALIDANORMA, function (req, res, next) {
+recursosRouter.post('/legal/norma', Auto.esAutenticado, Auto.esAutorizadoAñadir, VALIDANORMA, function (req, res, next) {
     req.Recurso = Norma;
     cRecursos.putRecurso(req, res, next);
 });
@@ -182,25 +165,25 @@ recursosRouter.post('/legal/norma', esAutenticado, esAutorizadoAñadir, VALIDANO
 
 /*** TASA SANCION ***********/
 
-recursosRouter.get('/legal/tasaSancion/:Id', esAutenticado, esAutorizadoEditar, function (req, res, next) {
+recursosRouter.get('/legal/tasaSancion/:Id', Auto.esAutenticado, Auto.esAutorizadoEditar, function (req, res, next) {
     req.Recurso = TasaSancion;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.get('/legal/tasaSancion', esAutenticado, esAutorizadoAñadir, function (req, res, next) {
+recursosRouter.get('/legal/tasaSancion', Auto.esAutenticado, Auto.esAutorizadoAñadir, function (req, res, next) {
     req.Recurso = TasaSancion;
     cRecursos.getRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/legal/tasaSancion/:Id', esAutenticado, esAutorizadoEditar, VALIDA, function (req, res, next) {
+recursosRouter.post('/legal/tasaSancion/:Id', Auto.esAutenticado, Auto.esAutorizadoEditar, VALIDA, function (req, res, next) {
     req.Recurso = TasaSancion;
     cRecursos.updateRecurso(req, res, next);
 });
 
 
-recursosRouter.post('/legal/tasaSancion', esAutenticado, esAutorizadoAñadir, VALIDA, function (req, res, next) {
+recursosRouter.post('/legal/tasaSancion', Auto.esAutenticado, Auto.esAutorizadoAñadir, VALIDA, function (req, res, next) {
     req.Recurso = TasaSancion;
     cRecursos.putRecurso(req, res, next);
 });

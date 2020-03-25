@@ -18,6 +18,13 @@ const TipoSchema = mongoose.Schema({
   padre: {
     type: String
   },
+  permiso: {
+    ADMIN: Boolean,
+    OAT: Boolean,
+    OI: Boolean,
+    EX: Boolean,
+    SAN: Boolean,
+  },
   tiposPermitidos: [String]
 });
 

@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
+const RecursoSchema = require('./modelos/RecursoSchema');
 
 const NormaSchema = mongoose.Schema({
     codBoe: String,
     tituloLey: String,
-    posicion: String,
-    pagina: Number,
+    posición: {
+        sección: String,
+        artículo: String,
+        párrafo: String,
+    },
+    páginaPDF: Number,
     fechaActualizacion: Date,
-    departamento: String,
-    rango: String,
-    numeroOficial: String,
-    fechaDisposicion: Date,
-    fechaPublicacion: Date,
     fechaVigencia: Date,
     fechaDerogacion: Date,
-    origenLegislativo: String,
     judicialmenteAnulada: Boolean,
     vigenciaAgotada: Boolean,
     estatusDerogacion: Boolean,
 
 });
+const Norma = mongoose.model('Norma', RecursoSchema.add(NormaSchema));
 
-module.exports = NormaSchema;
+module.exports = Norma;

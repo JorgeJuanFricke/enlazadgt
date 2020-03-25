@@ -1,25 +1,27 @@
-
-
 const mongoose = require('mongoose');
+const RecursoSchema = require('./modelos/RecursoSchema');
 
 const TasaSancionSchema = mongoose.Schema({
     codBoe: String,
-    tituloLey: String,
-    posicion: String,
-    pagina: Number,
-    fechaActualizacion: Date,
-    departamento: String,
-    rango: String,
-    numeroOficial: String,
-    fechaDisposicion: Date,
-    fechaPublicacion: Date,
+    títuloLey: String,
+    posición: {
+        sección: String,
+        artículo: String,
+        párrafo: String,
+    },
+    páginaPDF: Number,
+    fechaActualización: Date,
     fechaVigencia: Date,
-    fechaDerogacion: Date,
-    origenLegislativo: String,
+    fechaDerogación: Date,
     judicialmenteAnulada: Boolean,
     vigenciaAgotada: Boolean,
-    estatusDerogacion: Boolean,
-    euros: Number
-});
+    estatusDerogación: Boolean,
+    importe: {
+        type: number,
+        required: true
+    }
 
-module.exports = TasaSancionSchema;
+});
+const TasaSancion = mongoose.model('TasaSancion', RecursoSchema.add(TasaSancionSchema));
+
+module.exports = TasaSancion;

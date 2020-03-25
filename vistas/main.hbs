@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +8,7 @@
     <title>Enlaza dgt</title>
     <!-- Font Awesome -->
     <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
-   <!-- Your custom styles (optional) -->
+    <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="/css/vendor/font-awesome.min.css">
     <link href="/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/vendor/fontRope.css" type="text/css" charset="utf-8">
@@ -25,294 +24,296 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand text-warning" href="#">Enlaza dgt</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand text-warning" href="#">Enlaza dgt</a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto ">
-            <form class="form-inline">
-                <p class="nav-item">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ">
+                <form class="form-inline">
+                    <p class="nav-item">
 
-                    {{#if currentUser}}
+                        {{#if currentUser}}
                         {{currentUser.email}}
                         <a id="logout" href="/logout" class="nav-link"><i class="fas fa-user"></i>logout</a>
 
-                    {{else}}
+                        {{else}}
 
-                        <a id="login" href ="#" class="nav-link"><i class="fas fa-user"></i>login</a>
+                        <a id="login" href="#" class="nav-link"><i class="fas fa-user"></i>login</a>
 
-                    {{/if}}
+                        {{/if}}
 
-                </p>
+                    </p>
 
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Administrador
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">configuración</a>
-                        <a class="dropdown-item" href="#">exportar</a>
-                        <a class="dropdown-item" href="#">importar</a>
-                        <a id="usuario" class="dropdown-item" href="#">usuarios</a>
-                        <a class="dropdown-item" href="#">categorias</a>
-                        <a class="dropdown-item" href="#">listados</a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            A
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Oficina</a>
+                            <a class="dropdown-item" href="#">Exportar ...</a>
+                            <a class="dropdown-item" href="#">Importar ...</a>
+                            <a id="usuario" class="dropdown-item" href="#">Permisos</a>
+
+                        </div>
                     </div>
-                </div>
 
 
-                <select  id="categoria" class="custom-select my-1 mr-sm-2">
-                    {{#with treeCategorias}}
+                    <select id="categoria" class="custom-select my-1 mr-sm-2">
+                        {{#with treeCategorias}}
                         <option value="{{id}}">{{margen depth}}{{id}}</option>
                         {{> listaOpciones}}
-                    {{/with}}
-                </select>
+                        {{/with}}
+                    </select>
 
-            </form>
-        </ul>
-    </div>
-</nav>
-
-
-<div id="principal" class="container-fluid">
-    <div class="row">
-
-        <div id="jumbotron" class="col col-lg-3 float-left">
-            
+                </form>
+            </ul>
         </div>
+    </nav>
 
-        <div class="col col-lg-9 float-right">
-            <div class="row">
-                {{#if flash}}
+
+    <div id="principal" class="container-fluid">
+        <div class="row">
+
+            <div id="jumbotron" class="col col-lg-3 float-left">
+
+            </div>
+
+            <div class="col col-lg-9 float-right">
+                <div class="row">
+                    {{#if flash}}
                     <div class="alert alert-dismissible alert-{{error}}">
                         {{#each error}}
-                            <p>{{this.msg}}</p>
+                        <p>{{this.msg}}</p>
 
                         {{/each}}
                     </div>
-                {{/if}}
+                    {{/if}}
+                </div>
+                <article id="listaRecursos"></article>
             </div>
-            <article id="listaRecursos"></article>
-        </div>
-
-    </div>
-    <div class="row">
-        <footer>
-            <p>{{nombreOficina}}.{{usuario}}</p>
-        </footer>
-    </div>
-</div>
-
-
-
-<!-- ENLAZA --------------------------------------------->
-
-<div class="modal col-lg-6 " id="modalEnlaza" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Enlaza</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="frmEnlaza" action="/recurso/enlaces/" method="POST">
-
-                    <div class="form-group">
-                        <label for="sujeto">sujeto</label>
-                        <input type="text" name="sujeto" class="form-control" id="sujeto" >
-                        <input type="text" name="nombre" class="form-control" id="nombre" >
-                     </div>
-
-                    <div class="form-group">
-                        <select id="relaciones" name="relacion" class="form-control">
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <select id="categorias" class="form-control">
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <select id="recursos" name="recurso" size="15" class="form-control" multiple>
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" id="Aceptar" class="btn btn-primary">Grabar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-                    </div>
-                </form>
-
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-               
-                 </div>
 
         </div>
+        <div class="row">
+            <footer>
+                <p>{{nombreOficina}}.{{usuario}}</p>
+            </footer>
+        </div>
     </div>
-</div>
 
 
-<!-- LOGIN --------------------------------->
 
-<div class="modal col-lg-4" id="modalLogin">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">login</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="frmLogin" class="px-2 py-2" method="post" action="/login">
-                   <div class="form-group">
-                        <label for="email">email</label>
-                        <input type="text" name="email" class="form-control" id="username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" >
-                    </div>
-                  <button type="submit" class="btn btn-primary">login</button>
-                </form>
+    <!-- ENLAZA --------------------------------------------->
+
+    <div class="modal col-lg-6 " id="modalEnlaza">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Enlaza</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmEnlaza" action="/recurso/enlaces/" method="POST">
+
+                        <div class="form-group">
+                            <label for="sujeto">sujeto</label>
+                            <input type="text" name="sujeto" class="form-control" id="sujeto">
+                            <input type="text" name="nombre" class="form-control" id="nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <select id="relaciones" name="relacion" class="form-control">
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select id="categorias" class="form-control">
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select id="recursos" name="recurso" size="15" class="form-control" multiple>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" id="Aceptar" class="btn btn-primary">Grabar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </form>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+
+                </div>
+
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- TIPO ------------------------------------------------>
+    <!-- LOGIN --------------------------------->
 
-<div class="modal col-lg-6" id="modalTipo" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h3 id="tipo-codigo" class="modal-title"></h3>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-
-                <form id="frmTipo"  method="post" action="/admin/tipo/">
-                  <input type="text" id="tipo-id" name="codigo" disabled>
-                  <div class="form-group">
-                    <select id="permitidos" name="tiposPermitidos[]" multiple size="10" ></select>
-                  </div>
-
-                  <div class="form-group">
-
-                    <button type="submit" class="btn btn-primary">Grabar</button>
-                    <button id="Cancelar">Cancelar</button>
-                  </div>
-                </form>
+    <div class="modal col-lg-4" id="modalLogin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">login</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmLogin" class="px-2 py-2" method="post" action="/login">
+                        <div class="form-group">
+                            <label for="email">email</label>
+                            <input type="text" name="email" class="form-control" id="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" id="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">login</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
+    <!-- TIPO ------------------------------------------------>
 
-<!-- USUARIO ------------------------------------------------>
+    <div class="modal col-lg-6" id="modalTipo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 id="tipo-codigo" class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
 
-<div class="modal col-lg-4" id="modalUsuario" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">USUARIO</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="frmUsuario" class="px-2 py-2" method="post" action="/admin/usuario">
+                    <form id="frmTipo" method="post" action="/admin/tipo/">
+                        <input type="text" id="tipo-id" name="codigo" disabled>
+                        <div class="form-group">
+                            <select id="permitidos" name="tiposPermitidos[]" multiple size="10"></select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email" class="control-label">email:</label>
-                        <input type="text" class="form-control"  name="email" value="{{email}} ">
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre" class="control-label">nombre:</label>
-                        <input type="text" class="form-control"  name="nombre" value="{{nombre}} disabled">
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos" class="control-label">apellidos:</label>
-                        <input type="text" class="form-control"  name="apellidos" value="{{apellidos}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="DNI" class="control-label">dni:</label>
-                        <input type="text" class="form-control"  name="DNI" value="{{DNI}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="control-label">password:</label>
-                        <input type="text" class="form-control"  name="password" value="{{password}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control"  name="admin" value="{{admin}}">
-                        <input type="text" class="form-control"  name="OI" value="{{oi}}">
-                        <input type="text" class="form-control"  name="OAT" value="{{oat}}">
-                    </div>
+                        <div class="form-group">
 
-
-                    <button id="Cancelar">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">login</button>
-                </form>
+                            <button type="submit" class="btn btn-primary">Grabar</button>
+                            <button id="Cancelar">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
-<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
-<script type="text/javascript" src="/js/vendor/umd/popper.js" ></script>
-<script type="text/javascript" src="/js/vendor/bootstrap.js"></script>
-<script type="text/javascript" src="/js/vendor/d3.js"></script>
-<!--script type="text/javascript" src="/js/vendor/all.min.js"></script--> <!--load all styles -->
-<script src="/js/vendor/select2.min.js"></script>
-<script src="/js/vendor/handlebars-v4.1.2.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/recursos.js"></script>
-<script src="/js/enlaza.js"></script>
-<script src="/js/admin.js"></script>
+    <!-- USUARIO ------------------------------------------------>
 
-<script>
-    $(document).ready(function() {
-        $('#modalEnlaza').modal({ show: false});
-        $('#modalLogin').modal({show: false});
-        $('#modalTipo').modal({show: false});
-        $('#modalUsuario').modal({show: false});
-    });
-</script>
+    <div class="modal col-lg-4" id="modalUsuario">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">USUARIO</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmUsuario" class="px-2 py-2" method="post" action="/admin/usuario">
+
+                        <div class="form-group">
+                            <label for="email" class="control-label">email:</label>
+                            <input type="text" class="form-control" name="email" value="{{email}} ">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre" class="control-label">nombre:</label>
+                            <input type="text" class="form-control" name="nombre" value="{{nombre}} disabled">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos" class="control-label">apellidos:</label>
+                            <input type="text" class="form-control" name="apellidos" value="{{apellidos}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="DNI" class="control-label">dni:</label>
+                            <input type="text" class="form-control" name="DNI" value="{{DNI}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="control-label">password:</label>
+                            <input type="text" class="form-control" name="password" value="{{password}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="admin" value="{{admin}}">
+                            <input type="text" class="form-control" name="OI" value="{{oi}}">
+                            <input type="text" class="form-control" name="OAT" value="{{oat}}">
+                        </div>
+
+
+                        <button id="Cancelar">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
+    <script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/umd/popper.js"></script>
+    <script type="text/javascript" src="/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/vendor/d3.js"></script>
+    <!--script type="text/javascript" src="/js/vendor/all.min.js"></script-->
+    <!--load all styles -->
+    <script src="/js/vendor/select2.min.js"></script>
+    <script src="/js/vendor/handlebars-v4.1.2.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/recursos.js"></script>
+    <script src="/js/enlaza.js"></script>
+    <script src="/js/admin.js"></script>
 
-<script>
-$(document).ready(function() {
-    $(".dropdown-toggle").dropdown();
-    $('#tiposy').select2({
-            minimumInputLength: 3 // only start searching when the user has input 3 or more characters
+    <script>
+        $(document).ready(function () {
+            $('#modalEnlaza').modal({ show: false });
+            $('#modalLogin').modal({ show: false });
+            $('#modalTipo').modal({ show: false });
+            $('#modalUsuario').modal({ show: false });
         });
-     $('#categorias').select2();
+    </script>
 
-});
-</script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").dropdown();
+            $('#tiposy').select2({
+                minimumInputLength: 3 // only start searching when the user has input 3 or more characters
+            });
+            $('#categorias').select2();
+
+        });
+    </script>
 
 
 
@@ -329,5 +330,5 @@ $(document).ready(function() {
 
 
 </body>
-</html>
 
+</html>

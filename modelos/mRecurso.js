@@ -59,9 +59,8 @@ MetadataSchema.pre('save', function (next) {
         codigo: this.tipo
     }, function (error, tipo) {
         if ((error) || !tipo) {
-            return next(error)
+            return next('tipo no existe')
         }
-        //if (!tipo) {return next(new error("tipo no existe"))}
         return next();
     })
 });
@@ -72,11 +71,10 @@ MetadataSchema.pre('save', function (next) {
         categoria: this.categoria
     }, function (error, categoria) {
         if ((error) || !categoria) {
-            return next(error)
+            return next('categoría no existe')
         }
-        //if (!categoria) {return next(new error("categoria no existe"))}
         return next();
     })
 });
 
-module.exports = MetadataSchema;
+module.exports = RecursoSchema;

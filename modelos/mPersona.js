@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
+const RecursoSchema = require('./modelos/RecursoSchema');
 
-const PersonaSchema = mongoose.Schema({
-    juridica: Boolean,
+const NormaSchema = mongoose.Schema({
     telefono1: String,
     telefono2: String,
     paginaWeb: String,
     Fax: String,
     email: String,
-    direccion: String,
-    Poblacion: String,
+    dirección: String,
+    Población: String,
     DP: String,
+
 });
 
-module.exports = PersonaSchema;
+const Persona = mongoose.model('Persona', RecursoSchema.add(PersonaSchema));
+
+module.exports = Persona;
+
+
