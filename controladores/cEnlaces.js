@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const RecursoSchema = require('../modelos/mRecurso.js');
-const Recurso = mongoose.model('Recurso', RecursoSchema);
-const Enlace = require('../modelos/enlaces')
+const Recurso = require('../modelos/mRecurso');
+const Enlace = require('../modelos/mEnlaces')
 
 
 exports.putEnlace = async function (req, res, next) {

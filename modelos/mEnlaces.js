@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const enlaceSchema = mongoose.Schema({
+const EnlaceSchema = mongoose.Schema({
 
     sujeto: {
         Id: {
