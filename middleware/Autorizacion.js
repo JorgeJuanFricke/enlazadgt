@@ -1,4 +1,3 @@
-
 const jwt = require("jsonwebtoken");
 
 exports.esAutenticado = (req, res, next) => {
@@ -33,9 +32,24 @@ exports.esAutorizadoAñadir = (req, res, next) => {
 }
 
 exports.esAutorizadoEditar = (req, res, next) => {
-    // if recurso.autor = usuario.email || usuario.permiso === "ADMIN"
-    // next()
-    // else throw ERROR NO AUTORIZADO
-    next();
+
+    try {
+        recurso = await Recurso.findById(req.recurso);
+        usuario = req.user;
+        if (recurso.autor = usuario.email || usuario.permiso === "ADMIN") {
+            next();
+        } else {
+            const error = new Error("No autorizado.");
+            error.statusCode = 422;
+            throw error;
+
+        }
+
+    } catch {
+        const error = new Error("error autorización.");
+        error.statusCode = 500;
+        throw error;
+    }
+
 
 }

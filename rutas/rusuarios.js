@@ -47,7 +47,7 @@ usuariosRouter.post(
   "/permisos",
   Auto.esAutenticado, Auto.esAutorizadoEditar,
   [
-    body("status")
+    body("permisos")
     .trim()
     .not()
     .isEmpty()
