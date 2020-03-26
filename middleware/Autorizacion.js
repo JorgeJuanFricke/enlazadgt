@@ -31,7 +31,7 @@ exports.esAutorizadoAñadir = (req, res, next) => {
     next();
 }
 
-exports.esAutorizadoEditar = (req, res, next) => {
+exports.esAutorizadoEditar = async (req, res, next) => {
 
     try {
         recurso = await Recurso.findById(req.recurso);

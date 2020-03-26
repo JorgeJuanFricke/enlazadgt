@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Tipo = require('../modelos/mTipo.js');
 const Categoria = require('../modelos/mCategoria.js');
-let config = require('../configuracion.js');
+
 const d3 = require("d3");
 
 const {
@@ -10,7 +10,7 @@ const {
 const R = require('ramda');
 
 
-exports.renderPagina = async () => {
+exports.renderPagina = async (req, res, next) => {
 
     try {
         categorias = await Categoria.find({}, {
@@ -44,21 +44,21 @@ exports.renderPagina = async () => {
                 return d.padre
             })(tipos);
 
-        res.render('main', {
-            tipo,
-            categoria,
+        return res.render('main', {
+            tipo:"hjhjh",
+            categoria:"kfkfkfk",
             treeTipos,
             treeCategorias,
             layout: null
         });
 
 
-    } catch {
-        (err) => {
-            return next(err)
-        };
-
-    };
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
 }
 
 

@@ -208,7 +208,6 @@ const usuariosRouter = require('./rutas/rUsuarios');
 
 
 app.use('/recurso', recursosRouter);
-
 app.use('/admin', adminRouter);
 app.use('/usuario', usuariosRouter);
 app.use('/enlace', enlacesRouter);
