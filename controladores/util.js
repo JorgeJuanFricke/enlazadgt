@@ -8,7 +8,11 @@ const request = require('request');
 const MetadataSchema = require('../models/mMetadata.js');
 const Tipo = require('../models/mTipo.js');
 const Categoria = require('../models/mCategoria.js');
-
+const fetch = require('node-fetch');
+const rp = require('request-promise');
+const $ = require('cheerio');
+const xml2js = require('xml2js');
+const parseString = require('xml2js').parseString;
 const d3 = require('d3');
 
 //let RecursoSchema = MetadataSchema.add({subDocumento:TareaSchema});

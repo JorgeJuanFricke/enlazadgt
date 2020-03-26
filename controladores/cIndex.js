@@ -1,17 +1,65 @@
 const mongoose = require('mongoose');
-const Tipo = require('../models/mTipo.js');
-const Categoria = require('../models/mCategoria.js');
+const Tipo = require('../modelos/mTipo.js');
+const Categoria = require('../modelos/mCategoria.js');
 let config = require('../configuracion.js');
 const d3 = require("d3");
-const fetch = require('node-fetch');
-const rp = require('request-promise');
-const $ = require('cheerio');
-const xml2js = require('xml2js');
-const parseString = require('xml2js').parseString;
+
 const {
     validationResult
 } = require('express-validator/check');
 const R = require('ramda');
+
+
+exports.renderPagina = async () => {
+
+    try {
+        categorias = await Categoria.find({}, {
+            _id: 1,
+            codigo: 1,
+            padre: 1,
+
+        }).sort('padre');
+
+        let treeCategorias = d3.stratify()
+            .id(function (d) {
+                return d.codigo
+            })
+            .parentId(function (d) {
+                return d.padre
+            })(categorias);
+
+        tipos = await Tipo.find({}, {
+                _id: 1,
+                codigo: 1,
+                padre: 1,
+                url: 1
+            })
+            .sort('padre');
+
+        let treeTipos = d3.stratify()
+            .id(function (d) {
+                return d.codigo
+            })
+            .parentId(function (d) {
+                return d.padre
+            })(tipos);
+
+        res.render('main', {
+            tipo,
+            categoria,
+            treeTipos,
+            treeCategorias,
+            layout: null
+        });
+
+
+    } catch {
+        (err) => {
+            return next(err)
+        };
+
+    };
+}
 
 
 
@@ -87,5 +135,3 @@ let getRecursoId = async function (req) {
     return await Recurso.findById(req.params.id).exec();
 
 };
-
-
