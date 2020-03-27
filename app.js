@@ -147,7 +147,7 @@ hbs.registerHelper("margen", (depth, options) => {
 
 
 hbs.registerHelper("espacio2Guion", (frase, options) => {
-    return frase.replace(' ', "-");
+    return frase = frase.replace(" ", "-");
 
 });
 
@@ -171,7 +171,7 @@ hbs.registerPartial('Norma', vNorma);
 hbs.registerPartial('TasaSancion', vTasaSancion);
 hbs.registerPartial('Persona', vPersona);
 hbs.registerPartial('Lista', vList);
-hbs.registerPartial('jumboTron', vJumbotron);
+hbs.registerPartial('jumbotron', vJumbotron);
 
 
 

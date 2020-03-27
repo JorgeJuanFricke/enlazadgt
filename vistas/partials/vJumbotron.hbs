@@ -2,15 +2,15 @@
 <li class="nav-item">
 
     <div class="titulo">
-        <a class="btn btn-primary data" data-toggle="collapse" href="#{{espacio2Guion data.key}}" role="button">
-            {{data.key}}
+        <a class="btn btn-primary data" data-toggle="collapse" href="#{{espacio2Guion id}}" role="button">
+            {{id}}
         </a>
     </div>
-    <ul class="collapse" id="{{espacio2Guion data.key}}">
+    <ul class="collapse" id="{{espacio2Guion id}}">
         {{#each children}}
         <li class="tipo">
             <a class="recurso" href="#" onclick="listaRecursos()">
-                {{data.codigo}}
+                {{id}}
             </a>
             <span><a class="Nuevo" onclick="nuevoRecurso()"></a></span>
             <span><a href=" {{data.url}}"><i class="fas fa-pen-alt">nuevo</i></a></span>

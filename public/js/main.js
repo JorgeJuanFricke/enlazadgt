@@ -1,6 +1,7 @@
-$(document).ready(function () {
+ /*JUMBOTRON DE TIPOS
+ $(document).ready(function () {
 
-    /*JUMBOTRON DE TIPOS
+   
 
     //d3.json('/api/tipos')
     //    .then(function(data) {
@@ -27,7 +28,7 @@ $(document).ready(function () {
     });
     console.log(tipos);
 
-*/
+
 
     let jumbotron = d3.select("#jumbotron")
         .append("div")
@@ -113,7 +114,7 @@ $(document).ready(function () {
 
 });
 
-
+*/
 
 
 

@@ -43,7 +43,7 @@ exports.renderPagina = async (req, res, next) => {
             .parentId(function (d) {
                 return d.padre
             })(tipos);
-
+        console.log(treeTipos);
         return res.render('main', {
             tipo:"hjhjh",
             categoria:"kfkfkfk",
