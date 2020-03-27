@@ -91,7 +91,7 @@ app.use(express.static(path.join(__dirname, 'upload')));
 
 const hbs = require('hbs');
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'vistas'));
 app.set('view engine', 'hbs');
 
 hbs.create({
@@ -140,12 +140,16 @@ hbs.registerHelper('if_admin', function (usuario, options) {
 
 
 
-hbs.registerHelper("margen", function (depth, options) {
+hbs.registerHelper("margen", (depth, options) => {
     return ('_'.repeat(parseInt(depth)));
 
 });
 
 
+hbs.registerHelper("espacio2Guion", (frase, options) => {
+    return frase.replace(' ', "-");
+
+});
 
 
 const MomentHandler = require("handlebars.moment");
@@ -155,18 +159,19 @@ MomentHandler.registerHelpers(hbs);
 
 let vListaOpciones = require('./vistas/partials/vListaOpciones.hbs');
 let vList = require('./vistas/partials/vList.hbs');
-let vListaTipos = require('./vistas/partials/vListaTipos.hbs');
+let vJumbotron = require('./vistas/partials/vJumbotron.hbs');
 let vTexto = require('./vistas/partials/vTexto.hbs');
 let vNorma = require('./vistas/partials/vNorma.hbs');
 let vTasaSancion = require('./vistas/partials/vTasaSancion.hbs');
 let vPersona = require('./vistas/partials/vPersona.hbs');
+
 hbs.registerPartial('listaOpciones', vListaOpciones);
 hbs.registerPartial('Texto', vTexto);
 hbs.registerPartial('Norma', vNorma);
 hbs.registerPartial('TasaSancion', vTasaSancion);
 hbs.registerPartial('Persona', vPersona);
 hbs.registerPartial('Lista', vList);
-hbs.registerPartial('ListaTipos', vListaTipos);
+hbs.registerPartial('jumboTron', vJumbotron);
 
 
 
