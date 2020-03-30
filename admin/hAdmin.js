@@ -3,6 +3,20 @@ const mongoose = require('mongoose');
 const Tipo = require('../modelos/mTipo.js');
 
 
+adminRouter.post("/permisos",
+  Auto.esAutenticado, Auto.esAutorizadoEditar,
+  [
+    body("permisos")
+    .trim()
+    .not()
+    .isEmpty()
+  ],
+  cUsuarios.updateUsuario
+);
+
+
+
+
 
 exports.updateUsuario = async (email, nombre, password, admin, oi, oat) => {
     let body = {

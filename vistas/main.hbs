@@ -317,7 +317,81 @@
         });
     </script>
 
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/vendor/jquery.iframe-transport.js"></script>
+    <script src="/js/vendor/jquery.fileupload.js"></script>
+    <script src="/js/vendor/jquery.fileupload-process.js"></script>
+    <script src="/js/vendor/jquery.fileupload-validate.js"></script>
+    <!--script src="/js/jquery.fileupload.jquery-ui.js"></--script-->
+    <script src="/js/upload.js"></script>
+    <script src="/js/boe.js"></script>
+    <script src="/js/vendor/wysihtml5/bootstrap-wysihtml5-0.0.2.js"></script>
 
+
+    <!-- RECURSO ---------------------------------------------->
+
+    <script type="text/x-handlebars" id="recurso">
+        <div id="formRecurso" class="form-horizontal">
+
+            {{ #with recurso }}
+            <input type="hidden" name="_csrf" value="{{csrf}}">
+
+                <div class="form-group" style="background-color: lightblue" >
+                    <span class="h2">{{ tipo }}</span>
+                    <span class="h2 float-right">{{ categoria }}</span>
+                </div>
+
+                <div class="form-group">
+                    <div class="col col-2">
+                        <label for="etiqueta" class="control-label">etiqueta:</label>
+                        <input type="text" class="form-control" maxlength="20" name="etiqueta" value="{{etiqueta}}"></input>
+                    </div>
+                    <div class="col col-7">
+                        <label for="nombre" class="control-label">nombre:</label>
+                        <input type="text" class="form-control" name="nombre" value="{{nombre}}"></input>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion" class="control-label">descripción:</label>
+                    <textarea class="form-control" name="descripcion" id="demo" cols="80" rows="8">
+                        {{ descripcion }}
+                    </textarea>
+                </div>
+                <!--
+        {{ #if_eq urlTipo '/recurso/agente/persona'}}
+                {{> Persona}}
+        {{/ if_eq}}
+
+        {{ #if_eq urlTipo '/recurso/texto'}}
+                {{> Texto}}
+        {{/ if_eq}}
+
+        {{ #if_eq urlTipo '/recurso/legal/norma' }}
+                {{> Norma}}
+        {{/ if_eq}}
+
+        {{ #if_eq urlTipo '/recurso/legal/tasaSancion'}}
+                {{> TasaSancion}}
+        {{/ if_eq}}
+-->
+
+        <div class="form-group">
+                    <button type="button" onclick="postRecurso()" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-secundary" onclick="">Cancelar</button>
+
+                </div>
+
+                <input type="hidden" class="form-control" name="tipo" value="{{tipo}}">
+                    <input type="hidden" class="form-control" name="categoria" value="{{categoria}}">
+
+                        {{/with}}
+
+
+
+</div>
+    </script>
 
 
 

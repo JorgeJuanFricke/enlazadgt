@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 exports.esAutenticado = (req, res, next) => {
+    next();
     const authHeader = req.get("Authorization");
     if (!authHeader) {
         const error = new Error("No autenticado.");
@@ -32,7 +33,7 @@ exports.esAutorizadoAñadir = (req, res, next) => {
 }
 
 exports.esAutorizadoEditar = async (req, res, next) => {
-
+    next();
     try {
         recurso = await Recurso.findById(req.recurso);
         usuario = req.user;

@@ -44,6 +44,7 @@ exports.renderPagina = async (req, res, next) => {
                 return d.padre
             })(tipos);
         console.log(treeTipos);
+
         return res.render('main', {
             tipo:"hjhjh",
             categoria:"kfkfkfk",
@@ -128,10 +129,3 @@ exports.getRecursoyEnlaces = async (req, res, next) => {
 
 
 
-
-
-let getRecursoId = async function (req) {
-    let Recurso = req.Recurso;
-    return await Recurso.findById(req.params.id).exec();
-
-};
