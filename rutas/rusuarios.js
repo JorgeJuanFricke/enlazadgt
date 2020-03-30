@@ -25,11 +25,11 @@ usuariosRouter.get("/logout", function (req, res) {
 });
 
 
-router.get('/login', cUsuarios.getLogin);
+//usuariosRouter.get('/login', cUsuarios.getLogin);
 
-router.get('/signup', cUsuarios.getSignup);
+//usuariosRouter.get('/signup', cUsuarios.getSignup);
 
-router.post('/login',
+usuariosRouter.post('/login',
   [
     body('email')
       .isEmail()
@@ -40,14 +40,14 @@ router.post('/login',
       .isAlphanumeric()
       .trim()
   ],
-  cUsuarios.postLogin
+  cUsuarios.login
 );
 
 
 
-router.post( '/signup',
+usuariosRouter.post( '/signup',
   [
-    check('email')
+    body('email')
       .isEmail()
       .withMessage('Please enter a valid email.')
       .custom((value, { req }) => {
@@ -80,20 +80,20 @@ router.post( '/signup',
         return true;
       })
   ],
-  cUsuarios.postSignup
+  cUsuarios.signup
 );
 
 
 
-router.post('/logout', cUsuarios.postLogout);
+//usuariosRouter.post('/logout', cUsuarios.postLogout);
 
-router.get('/reset', cUsuarios.getReset);
+//usuariosRouter.get('/reset', cUsuarios.getReset);
 
-router.post('/reset', cUsuarios.postReset);
+//usuariosRouter.post('/reset', cUsuarios.postReset);
 
-router.get('/reset/:token', cUsuarios.getNewPassword);
+//usuariosRouter.get('/reset/:token', cUsuarios.getNewPassword);
 
-router.post('/new-password', cUsuarios.postNewPassword);
+//usuariosRouter.post('/new-password', cUsuarios.postNewPassword);
 
 
 

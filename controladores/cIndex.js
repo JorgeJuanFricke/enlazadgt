@@ -46,8 +46,8 @@ exports.renderPagina = async (req, res, next) => {
         console.log(treeTipos);
 
         return res.render('main', {
-            tipo:"hjhjh",
-            categoria:"kfkfkfk",
+            tipo: "hjhjh",
+            categoria: "kfkfkfk",
             treeTipos,
             treeCategorias,
             layout: null
@@ -67,10 +67,11 @@ exports.renderPagina = async (req, res, next) => {
 
 exports.getListaRecursos = async (req, res, next) => {
 
+    // necesito limites y pagina
     try {
         let tipo = req.query.tipo;
         let categoria = req.query.categoria;
-        // let codigoCategoria = await Categoria.findById(req.query.categoria).exec();
+
         let recursos = await Recurso.aggregate([{
                 $match: {
                     categoria: req.query.categoria,
@@ -89,7 +90,8 @@ exports.getListaRecursos = async (req, res, next) => {
                 $unwind: '$tipo'
             }
         ]).exec();
-        //let recursos = await Recurso.find({tipo: tipo, categoria: categoria}).populate("tipo");
+
+        // poner limites y skips
 
         return res.json(recursos);
 
@@ -126,6 +128,3 @@ exports.getRecursoyEnlaces = async (req, res, next) => {
     }
 
 };
-
-
-

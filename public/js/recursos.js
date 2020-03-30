@@ -1,10 +1,12 @@
-function listaRecursos(tipo, categoria) {
+function listaRecursos(tipo) {
 
     d3.event.preventDefault();
+    let categoria = $('#categoria').children("option:selected").val();
+    let tipo = tipo.codigo;
     let query = `?tipo=${tipo}&categoria=${categoria}`;
+    // tal vez post para tipo y categoria y query para limits y skips
 
-
-    d3.json('api/recursos' + query)
+    d3.json('/recursos' + query)
         .then(function (data) {
 
             d3.select("article").selectAll("div").remove();
@@ -191,7 +193,84 @@ function muestraRecursoyEnlaces(data) {
 
 }
 
-const deleteRecurso = (data) => {
+
+
+const editaRecurso = (recurso) => {
+    fetch('http://localhost:3000/recurso:/' + recurso, {
+            method: 'POST',
+            headers: {
+                'csrf-token': csrf
+            }
+        })
+        .then(result => {
+            return result.json();
+        })
+        .then(data => {
+
+            var source = document.getElementById("templateRecurso").innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(data);
+
+            document.getElementById("body").innerHTML = html;
+            console.log(html);
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+/*
+function muestraRecursos() {
+    let $recursos = $('article');
+    let $template = $('#tptListaRecursos').html();
+    let $tipo = $("#tipo").children("option:selected");
+    let $categoria = $('#categoria').children("option:selected");
+
+
+    $.get('/api', {
+            tipo: $tipo.val(),
+            categoria: $categoria.val()
+        }, function (data, textStatus, jqXHR) {
+
+            if (data.length > 0) {
+                $templateRecursos = Handlebars.compile($template);
+                $recursos.html($templateRecursos(data));
+            } else
+                $recursos.html('<h3>No existen registros</h3>');
+
+        })
+        .fail(function () {
+            alert('error recuperando recursos')
+        })
+
+}
+*/
+
+
+
+
+const nuevoRecurso = (tipo) => {
+    try {
+        // tipo y categoria
+        recurso.tipo = tipo.codigo;
+        recurso.categoria = $('#categoria').children("option:selected").val();
+        recurso.urlTipo = tipo.url;
+        var source = document.getElementById("templateRecurso").innerHTML;
+        var template = Handlebars.compile(source);
+        var html = template(recurso);
+
+        document.getElementById("body").innerHTML = html;
+        console.log(html);
+
+    } catch (err) {
+        console.log(err);
+    };
+};
+
+
+const borraRecurso = (data) => {
     // para input
     // delete solo admin
     // csrf-token en main?

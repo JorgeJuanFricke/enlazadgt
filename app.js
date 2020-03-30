@@ -205,7 +205,7 @@ app.use('/upload', function (req, res, next) {
 /****** routers *************************/
 const recursosRouter = require('./rutas/rRecursos.js');
 const indexRouter = require('./rutas/rIndex.js');
-const adminRouter = require('./admin/rAdmin.js');
+const adminRouter = require('./rutas/rAdmin.js');
 const enlacesRouter = require('./rutas/rEnlaces');
 const usuariosRouter = require('./rutas/rUsuarios');
 

@@ -248,7 +248,7 @@
 
                         <div class="form-group">
                             <label for="email" class="control-label">email:</label>
-                            <input type="text" class="form-control" name="email" value="{{email}} ">
+                            <input type="text" class="form-control" name="email" value="\{{email}} ">
                         </div>
                         <div class="form-group">
                             <label for="nombre" class="control-label">nombre:</label>
@@ -298,6 +298,7 @@
 
     <script>
         $(document).ready(function () {
+            $('#modalRecurso').modal({ show: false });
             $('#modalEnlaza').modal({ show: false });
             $('#modalLogin').modal({ show: false });
             $('#modalTipo').modal({ show: false });
@@ -329,69 +330,175 @@
 
 
     <!-- RECURSO ---------------------------------------------->
+    <script type="text/x-handlebars" id="templateRecurso">
 
-    <script type="text/x-handlebars" id="recurso">
-        <div id="formRecurso" class="form-horizontal">
-
-            {{ #with recurso }}
-            <input type="hidden" name="_csrf" value="{{csrf}}">
-
-                <div class="form-group" style="background-color: lightblue" >
-                    <span class="h2">{{ tipo }}</span>
-                    <span class="h2 float-right">{{ categoria }}</span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col col-2">
-                        <label for="etiqueta" class="control-label">etiqueta:</label>
-                        <input type="text" class="form-control" maxlength="20" name="etiqueta" value="{{etiqueta}}"></input>
+<div class="modal col-lg-4" id="modalRecurso">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <!-- Modal Header -->
+        \{{ #with recurso }}
+                <div class="modal-header">
+                    <h4 class="modal-title">Recurso</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+                    <div class="form-group" style="background-color: lightblue" >
+                        <span class="h2">\{{ tipo }}</span>
+                        <span class="h2 float-right">\{{ categoria }}</span>
                     </div>
-                    <div class="col col-7">
-                        <label for="nombre" class="control-label">nombre:</label>
-                        <input type="text" class="form-control" name="nombre" value="{{nombre}}"></input>
+                
+                </div>
+                
+               <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="form-group">
+                        <div class="col col-2">
+                            <label for="etiqueta" class="control-label">etiqueta:</label>
+                            <input type="text" class="form-control" maxlength="20" name="etiqueta" value="{{etiqueta}}"></input>
+                        </div>
+                        <div class="col col-7">
+                            <label for="nombre" class="control-label">nombre:</label>
+                            <input type="text" class="form-control" name="nombre" value="{{nombre}}"></input>
+                        </div>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descripcion" class="control-label">descripción:</label>
+                        <textarea class="form-control" name="descripcion" id="demo" cols="80" rows="8">
+                            \{{ descripcion }}
+                        </textarea>
+                    </div>
+               
+        \{{ #if_eq urlTipo '/recurso/agente/persona'}}
+                <div class="row">
+                <div class="col">
+                        <label for="paginaWeb" class="control-label">página Web:</label>
+                        <input type="text" class="form-control"  name="paginaWeb" value="{{paginaWeb}}">
+                    </div>
+                    <div class="col">
+                        <label for="email" class="control-label">Email:</label>
+                        <input type="text" class="form-control"  name="email" value="{{email}}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="telefono1" class="control-label">Teléfono 1:</label>
+                        <input type="text" class="form-control"  name="telefono1" value="{{telefono1}}">
+                    </div>
+                    <div class="col">
+                        <label for="telefono2" class="control-label">Teléfono 2:</label>
+                        <input type="text" class="form-control"  name="telefono2" value="{{telefono2}}">
+                    </div>
+                    <div class="col">
+                        <label for="fax" class="control-label">Fax:</label>
+                        <input type="text" class="form-control"  name="fax" value="{{fax}}">
                     </div>
 
                 </div>
-
-                <div class="form-group">
-                    <label for="descripcion" class="control-label">descripción:</label>
-                    <textarea class="form-control" name="descripcion" id="demo" cols="80" rows="8">
-                        {{ descripcion }}
-                    </textarea>
-                </div>
-                <!--
-        {{ #if_eq urlTipo '/recurso/agente/persona'}}
-                {{> Persona}}
-        {{/ if_eq}}
-
-        {{ #if_eq urlTipo '/recurso/texto'}}
-                {{> Texto}}
-        {{/ if_eq}}
-
-        {{ #if_eq urlTipo '/recurso/legal/norma' }}
-                {{> Norma}}
-        {{/ if_eq}}
-
-        {{ #if_eq urlTipo '/recurso/legal/tasaSancion'}}
-                {{> TasaSancion}}
-        {{/ if_eq}}
--->
-
-        <div class="form-group">
-                    <button type="button" onclick="postRecurso()" class="btn btn-primary">Grabar</button>
-                    <button type="button" class="btn btn-secundary" onclick="">Cancelar</button>
-
+                <div class="row">
+                    <div class="col">
+                        <label for="direccion" class="control-label">dirección:</label>
+                        <input type="text" class="form-control"  name="direccion" value="{{direccion}}">
+                    </div>
+                    <div class="col">
+                        <label for="DP" class="control-label">DP:</label>
+                        <input type="text" class="form-control"  name="DP" value="{{DP}}">
+                    </div>
+                    <div class="col">
+                        <label for="poblacion" class="control-label">Población:</label>
+                        <input type="text" class="form-control"  name="poblacion" value="{{poblacion}}">
+                    </div>
                 </div>
 
+
+        \{{/ if_eq}}
+
+        \{{ #if_eq urlTipo '/recurso/texto'}}
+            <div class="row">
+                <div class="col">
+                    <div id="Uploads"></div>
+                </div>
+                <div class="col">
+                    <label for="url" class="control-label">url:</label>
+                    <input type="text" class="form-control"  name="url" value="\{{url}}">
+                </div>
+                <div class="col">
+                    <label for="procedencia" class="control-label">procedencia:</label>
+                    <input type="text" class="form-control"  name="procedencia" value="\{{procedencia}}">
+                </div>
+
+                <!--div class="col col-2">
+                    <label for="fecha" class="control-label">creado:</label>
+                    <input type="text" class="form-control"  name="fecha" value="{{moment fecha format="DD/MM/YYYY" }}">
+                </div-->
+                <div class="row">
+                    <!--label for="documento" class="control-label">documento</label-->
+                    <div class="col">
+                        <span class="btn btn-default btn-file">
+                            <input id="fileupload" type="file"  name="documento" class="form-control" data-url="/upload">
+                        </span>
+                    </div>
+                </div>
+            </div>
+                       
+        \{{/ if_eq}}
+
+        \{{ #if_eq urlTipo '/recurso/legal/norma' }}
+            <div class="row">
+                <div class="col">
+                    <label for="codBoe" class="control-label">ley Boe</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-3">
+                    <input id="codBoe" type="text" class="form-control"  name="codBoe" value="{{codBoe}}">
+                </div>
+                <div class="col" col-9>
+                    <select id="tituloLey" class="form-control"  name="tituloLey">
+                        {{#each leyes}}
+                            <option value="/{{titulo}}"></option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-3">
+                    <label for="posicion" class="control-label">posición:</label>
+                    <input type="text" class="form-control"  name="posicion" value="{{posicion}}">
+                </div>
+                <div class="col col-2">
+                    <label for="pagina" class="control-label">página:</label>
+                    <input type="text" class="form-control"  name="pagina" value="{{pagina}}" >
+                </div>
+                <button id="Ver" type="button" onclick="verBoe()" class="btn">Ver Boe</button>
+            </div>  
+        \{{/ if_eq}}
+
+        \{{ #if_eq urlTipo '/recurso/legal/tasaSancion'}}
+            <div class="col col-3">
+                <label for="euros" class="control-label">$:</label>
+                <input type="text" class="form-control"  name="euros" value="/{{euros}}">
+            </div>
+                
+        \{{/ if_eq}}
+
+
+            <div class="form-group">
+                <button type="button" onclick="postRecurso()" class="btn btn-primary">Grabar</button>
+                <button type="button" class="btn btn-secundary" onclick="">Cancelar</button>
+
+            </div>
                 <input type="hidden" class="form-control" name="tipo" value="{{tipo}}">
-                    <input type="hidden" class="form-control" name="categoria" value="{{categoria}}">
-
-                        {{/with}}
-
-
+                <input type="hidden" class="form-control" name="categoria" value="{{categoria}}">
+            </div> 
+        </div>   
+    </div>
+    \{{/with}}
 
 </div>
-    </script>
+</script>
 
 
 
