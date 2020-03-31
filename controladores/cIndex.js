@@ -45,7 +45,7 @@ exports.renderPagina = async (req, res, next) => {
             })(tipos);
         console.log(treeTipos);
 
-        return res.render('main', {
+        return res.render('vIndex', {
             tipo: "hjhjh",
             categoria: "kfkfkfk",
             treeTipos,

@@ -9,12 +9,12 @@
     <ul class="collapse" id="{{espacio2Guion id}}">
         {{#each children}}
         <li class="tipo">
-            <a class="recurso" href="#" onclick="listaRecursos()">
-                {{id}}
-            </a>
-            <span><a class="Nuevo" onclick="nuevoRecurso()"></a></span>
-            <span><a href=" {{data.url}}"><i class="fas fa-pen-alt">nuevo</i></a></span>
-            <span><a href=" {{data.url}}"><i class="fas fa-pen-alt">update</i></a></span>
+            <span><a class="recurso" href="#" data-tipo={{id}} onclick="listaRecursos()">
+                    {{id}}
+                </a></span>
+            <span><a class="Nuevo" href="#" data-id={{id}} data-url={{data.url}} onclick="nuevoRecurso(this)">+++<i
+                        class="fas fa-pen-alt"></i></a></span>
+
         </li>
 
         {{/each}}
